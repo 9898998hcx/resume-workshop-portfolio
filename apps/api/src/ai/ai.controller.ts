@@ -14,5 +14,14 @@ export class AiController {
     if (!parsed.success) throw new BadRequestException({ code: 'VALIDATION_ERROR', message: 'API Key 字段无效' });
     return this.ai.setSettings(request.user.id, parsed.data.apiKey);
   }
+  @Post('polish') polish(@Req() request: AuthRequest, @Body() body: unknown) {
+    // The service performs the shared strict schema validation. The route
+    // fixes the scenario so a module action cannot accidentally become a
+    // generate or suggestions request.
+    const payload = body && typeof body === 'object' && !Array.isArray(body)
+      ? { ...(body as Record<string, unknown>), scenario: 'polish' }
+      : body;
+    return this.ai.generate(request.user.id, payload);
+  }
   @Post('generate') generate(@Req() request: AuthRequest, @Body() body: unknown) { return this.ai.generate(request.user.id, body); }
 }

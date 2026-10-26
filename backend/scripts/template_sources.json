@@ -1,0 +1,50 @@
+{
+  "github": [
+    {
+      "enabled": true,
+      "repo": "awesome-resume-templates/html-resume-templates",
+      "branch": "main",
+      "kind": "html_css",
+      "license_allowlist": ["MIT"],
+      "allow_preview_links": true,
+      "max_templates": 20
+    },
+    {
+      "enabled": true,
+      "repo": "jsonresume/resume-schema",
+      "branch": "master",
+      "kind": "json_schema",
+      "paths": ["schema.json"],
+      "license_allowlist": ["MIT"],
+      "max_templates": 1
+    },
+    {
+      "enabled": false,
+      "repo": "salomonelli/best-resume-ever",
+      "branch": "master",
+      "kind": "build_source",
+      "license_allowlist": ["MIT"],
+      "note": "Vue/LESS build source; disabled until a reviewed renderer adapter exists."
+    }
+  ],
+  "web": [
+    {
+      "enabled": false,
+      "name": "Awesome Resume Templates gallery",
+      "url": "https://awesome-resume-templates.github.io/",
+      "license": "MIT",
+      "license_url": "https://github.com/awesome-resume-templates/html-resume-templates/blob/main/LICENSE",
+      "allow_preview_links": true,
+      "note": "Disabled by default; enable only after checking robots.txt and current ToS."
+    },
+    {
+      "enabled": false,
+      "name": "happysnaker Resume demo",
+      "url": "https://happysnaker.github.io/Resume/",
+      "license": "MIT",
+      "license_url": "https://github.com/happysnaker/Resume/blob/master/LICENSE",
+      "allow_preview_links": false,
+      "note": "Third-party assets have separate licenses; disabled by default."
+    }
+  ]
+}

@@ -30,12 +30,13 @@ test('register, edit, reference template, AI preview/accept, download and delete
   await page.getByRole('link',{name:'专业履历',exact:true}).click();
   await page.getByLabel('应用到哪份简历').selectOption(id!);
   await page.getByRole('button',{name:'使用此结构生成',exact:true}).click();
-  await expect(page).toHaveURL(new RegExp(`/resumes/${id}\\?ai=1`));
+  await expect(page).toHaveURL(new RegExp(`/resumes/${id}$`));
   const referenced=await(await page.request.get(`/api/resumes/${id}`)).json();
   expect(referenced.resume.templateId).toBeTruthy();
   expect(referenced.resume.sections.map((s:any)=>s.type).slice(0,3)).toEqual(['basic','intent','work']);
   expect(referenced.resume.sections.find((s:any)=>s.type==='basic').content[0].name).toBe('李明');
-  await page.getByLabel('你想做什么').selectOption('summary');
+  await page.getByRole('button',{name:'AI 助手',exact:true}).click();
+  await page.getByLabel('辅助场景').selectOption('summary');
   await page.getByLabel('你的真实经历').fill('三年软件开发经验');
   await page.getByRole('button',{name:'生成并预览'}).click();
   await expect(page.getByText('生成内容预览',{exact:true})).toBeVisible();
