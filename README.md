@@ -39,6 +39,15 @@ TODO：请在部署完成后补充公开演示地址。当前版本以本地运�
 | 测试 | Vitest、Node test runner、Supertest、Playwright |
 | 存储/安全 | 本地 SQLite；可选 S3 兼容归档；AES-256-GCM 密钥加密、Cookie 会话、CSRF、审计日志 |
 
+### 选型理由
+
+- **Next.js 16 + React 19**：用 App Router 同时承载页面和对后端的 rewrite 代理，减少跨域与额外部署配置；服务端组件负责首屏与 SEO，客户端组件只承载编辑器、实时预览和 AI 面板等交互密集区域。
+- **NestJS 11 + Zod**：按 auth、resume、ai、pdf、template、admin 划分领域模块，依赖注入便于替换限流器和存储实现；Zod 在运行时校验请求体与模型输出，补上 TypeScript 编译期覆盖不到的外部数据。
+- **Prisma 6 + SQLite/PostgreSQL**：本地 SQLite 零依赖启动、迁移文件可审阅；生产环境可切换到 PostgreSQL 而业务代码不变，符合个人项目“先能跑、再可部署”的取舍。
+- **DeepSeek Chat Completions + BYOK**：中文写作场景成本低、响应稳定；系统 Key 只提供受限的体验额度，用户可自带 Key，降低作品集长期演示的维护成本。
+- **Playwright**：同一套 Chromium 既用于端到端测试，也用于服务端 A4 PDF 渲染，减少浏览器依赖的重复安装。
+- **不引入重型状态管理**：页面状态集中在少量 hooks 和局部组件状态，当前规模下 Redux/Zustand 的抽象成本高于收益。
+
 ## 系统架构与核心数据流
 
 项目采用单仓库、模块化单体结构，便于个人维护和求职展示：
